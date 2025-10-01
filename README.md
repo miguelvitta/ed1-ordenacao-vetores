@@ -52,3 +52,57 @@ Depois execute:
 Substitua clang por gcc se desejar.
 
 ---
+
+## COMPILAR NO WINDOWS
+
+No Windows é possível compilar e executar de duas formas: com make (se instalado) ou diretamente com o compilador (gcc ou clang).
+
+## Usando make (com MSYS2/MinGW ou WSL)
+
+Instale o MSYS2
+ ou ative o WSL (Windows Subsystem for Linux).
+
+Instale os pacotes necessários:
+
+MSYS2 (MinGW64 terminal):
+
+```bash
+pacman -S mingw-w64-x86_64-gcc make
+```
+
+WSL (Ubuntu ou outra distro):
+
+```bash
+sudo apt update
+sudo apt install build-essential
+```
+
+Abra o terminal (MSYS2 MinGW64 ou WSL), vá até a pasta do projeto e compile com:
+
+```bash
+make
+```
+
+Isso gera o executável sort_algorithms.exe.
+
+Execute o programa:
+
+```bash
+./sort_algorithms.exe
+```
+
+## Sem make (compilação manual)
+
+Se não quiser instalar o make, pode compilar diretamente com gcc:
+
+```bash
+gcc -Wall -Wextra -Wshadow main.c functions.c -o sort_algorithms.exe
+```
+
+Depois execute:
+
+```bash
+sort_algorithms.exe
+```
+
+Substitua gcc por clang caso prefira.
