@@ -7,6 +7,7 @@
 
 // Os protótipos das funções vão aqui
 
+int get_int(const char *prompt);
 
 
 #endif
