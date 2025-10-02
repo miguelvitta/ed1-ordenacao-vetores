@@ -26,12 +26,16 @@ int get_int(const char *prompt) {
     }
 }
 
-void CountingSort(int* v, int n){
+int getMax(int *v,int n){
     int maior = v[0];
-
     for(int i=1;i<n;i++){
         if(v[i]>maior) maior = v[i];
     }
+    return maior;
+}
+
+void CountingSort(int* v, int n){
+    int maior = getMax(v,n);
 
     int* contador = calloc(maior+1,sizeof(int));
 
@@ -52,4 +56,30 @@ void CountingSort(int* v, int n){
     free(contador);
     free(saida);
 
+}
+
+void CountigSortRadix(int *v,int n, int exp){
+    int saida[n];
+    int i;
+    int contador[10] = {0};
+    for(i=0;i<n;i++){
+        contador[(v[i]/exp)%10]++;
+    }
+    for(i=1;i<10;i++){
+        contador[i]+=contador[i-1];
+    }
+    for(i=n-1;i>=0;i--){
+        saida[contador[(v[i]/exp) % 10] - 1]=v[i];
+        contador[(v[i] / exp) % 10]--;
+    }
+    for(i=0;i<n;i++){
+        v[i]=saida[i];
+    }
+}
+
+void RadixSort(int* v, int n){
+    int m = getMax(v, n);
+    for(int exp = 1; m/exp > 0; exp *= 10){
+        CountigSortRadix(v, n, exp); 
+    }
 }

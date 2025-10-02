@@ -9,6 +9,7 @@
 
 int get_int(const char *prompt);
 void CountingSort(int* v, int n);
-
+int getMax(int *v,int n);
+void RadixSort(int* v, int n);
 
 #endif
