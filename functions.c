@@ -83,3 +83,48 @@ void RadixSort(int* v, int n){
         CountigSortRadix(v, n, exp); 
     }
 }
+
+int* Crescente(int n){
+    int* v = malloc(n * sizeof(int));
+    if(v == NULL){
+        printf("Erro ao alocar memória.\n");
+        return NULL;
+    }
+    for(int i=0;i<n;i++){
+        v[i] = i+1;
+    }
+    return v;
+}
+
+int* Decrescente(int n){
+    int* v = malloc(n * sizeof(int));
+    if(v == NULL){
+        printf("Erro ao alocar memória.\n");
+        return NULL;
+    }
+    for(int i=0;i<n;i++){
+        v[i] = n - i;
+    }
+    return v;
+}
+
+int* Aleatorio(int n){
+    int* v = malloc(n * sizeof(int));
+    if(v == NULL){
+        printf("Erro ao alocar memória.\n");
+        return NULL;
+    }
+    int limite = 1000;
+    srand(time(NULL));
+    for(int i=0;i<n;i++){
+        v[i]= rand() % limite;
+    }
+    return v;
+}
+
+void Imprimir(int* v, int n){
+    for(int i=0;i<n;i++){
+        printf("%d ",v[i]);
+    }
+    printf("\n");
+}
