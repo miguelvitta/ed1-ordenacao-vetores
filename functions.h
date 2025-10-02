@@ -8,7 +8,6 @@
 // Os protótipos das funções vão aqui
 
 int get_int(const char *prompt);
-
 void CountingSort(int* v, int n);
 
 

@@ -40,7 +40,7 @@ void CountingSort(int* v, int n){
     }
 
     for(int i=1; i<= maior; i++){
-        contador[i] = contador[i-1];
+        contador[i] = contador[i-1] + contador[i];
     }
     int* saida = malloc(n * (sizeof(int)));
     for(int i = n-1;i>=0;i--){
