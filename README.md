@@ -102,7 +102,7 @@ gcc -Wall -Wextra -Wshadow main.c functions.c -o sort_algorithms.exe
 Depois execute:
 
 ```bash
-sort_algorithms.exe
+./sort_algorithms.exe
 ```
 
 Substitua gcc por clang caso prefira.
