@@ -152,3 +152,15 @@ void tempoMS(void (*sort)(int*, int, long long int*,long long int*), int *v, int
     printf("Comparacoes: %ld \n",(long)*comp);
     printf("Trocas: %ld \n",(long)*trocas);
 }
+
+static int pivo(int* v, int esquerda, int direita) {
+    
+}
+
+void quicksort(int* v, int esquerda, int direita) {
+    if (esquerda < direita) {
+        int p = pivo(v, esquerda, direita);
+        quicksort(v, esquerda, p - 1);
+        quicksort(v, p + 1, direita);
+    }
+}
