@@ -96,6 +96,75 @@ void RadixSort(int* v, int n,long long int* comparacoes, long long int* trocas){
     }
 }
 
+// Selecion, Inserction e Bubble
+
+void SelectionSort(int* v, int n){
+    long long int trocas = 0;
+    long long int comparacoes = 0;
+
+    for(int i=0;i<n-1;i++){
+        int menor = i;
+        for(int j=i+1;j<n;j++){
+            comparacoes++;
+            if(v[j] < v[menor]){
+                menor = j;
+            }
+        }
+        if(menor != i){
+            int aux = v[i];
+            v[i] = v[menor];
+            v[menor] = aux;
+            trocas++;
+        }
+    }
+
+    //printf("SelectionSort -> Trocas: %lld | Comparacoes: %lld\n", trocas, comparacoes);
+}
+
+void InsertionSort(int* v, int n){
+    long long int trocas = 0;
+    long long int comparacoes = 0;
+
+    for(int i=1;i<n;i++){
+        int chave = v[i];
+        int j = i-1;
+
+        while(j >= 0){
+            comparacoes++;
+            if(v[j] > chave){
+                v[j+1] = v[j];
+                trocas++;
+                j--;
+            } else {
+                break;
+            }
+        }
+        v[j+1] = chave;
+        trocas++;
+    }
+
+    //printf("InsertionSort -> Trocas: %lld | Comparacoes: %lld\n", trocas, comparacoes);
+}
+
+void BubbleSort(int* v, int n){
+    long long int trocas = 0;
+    long long int comparacoes = 0;
+
+    for(int i=0;i<n-1;i++){
+        for(int j=0;j<n-i-1;j++){
+            comparacoes++;
+            if(v[j] > v[j+1]){
+                int aux = v[j];
+                v[j] = v[j+1];
+                v[j+1] = aux;
+                trocas++;
+            }
+        }
+    }
+
+    //printf("BubbleSort -> Trocas: %lld | Comparacoes: %lld\n", trocas, comparacoes);
+}
+
 int* Crescente(int n){
     int* v = malloc(n * sizeof(int));
     if(v == NULL){
