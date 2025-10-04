@@ -59,7 +59,7 @@ void CountingSort(int* v, int n){
 }
 
 void CountigSortRadix(int *v,int n, int exp){
-    int saida[n];
+    int* saida = malloc(n*sizeof(int));
     int i;
     int contador[10] = {0};
     for(i=0;i<n;i++){
@@ -75,6 +75,7 @@ void CountigSortRadix(int *v,int n, int exp){
     for(i=0;i<n;i++){
         v[i]=saida[i];
     }
+    free(saida);
 }
 
 void RadixSort(int* v, int n){
@@ -114,7 +115,7 @@ int* Aleatorio(int n){
         printf("Erro ao alocar memória.\n");
         return NULL;
     }
-    int limite = 10000;
+    int limite = 1000;
     srand(time(NULL));
     for(int i=0;i<n;i++){
         v[i]= rand() % limite;
@@ -129,12 +130,13 @@ void Imprimir(int* v, int n){
     printf("\n");
 }
 
-double tempoMS(void (*sort)(int*, int), int *v, int n) {
+void tempoMS(void (*sort)(int*, int), int *v, int n) {
     clock_t inicio, fim;
     double tempo_ms;
     inicio = clock();
     sort(v, n);  
     fim = clock();
-    tempo_ms = ((double)(fim - inicio) / CLOCKS_PER_SEC) * 1000.0;
-    return tempo_ms;
+    tempo_ms = ((double)(fim - inicio) / CLOCKS_PER_SEC)*1000.0;
+    printf("Tempo de Execucao: %.3lf ms(milissegundo)\n",tempo_ms);
+    fflush(stdout);
 }

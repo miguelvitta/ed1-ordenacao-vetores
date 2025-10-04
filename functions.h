@@ -16,6 +16,6 @@ int* Aleatorio(int n);
 int* Decrescente(int n);
 int* Crescente(int n);
 void Imprimir(int* v, int n);
-double tempoMS(void (*sort)(int*, int), int *v, int n);
+void tempoMS(void (*sort)(int*, int), int *v, int n);
 
 #endif
