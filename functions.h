@@ -9,12 +9,13 @@
 // Os protótipos das funções vão aqui
 
 int get_int(const char *prompt);
-void CountingSort(int* v, int n);
-int getMax(int *v,int n);
-void RadixSort(int* v, int n);
+void CountingSort(int* v, int n, long long int* comparacoes, long long int* trocas);
+int getMax(int *v,int n,long long int* comparacoes);
+void RadixSort(int* v, int n,long long int* comparacoes, long long int* trocas);
 int* Aleatorio(int n);
 int* Decrescente(int n);
 int* Crescente(int n);
 void Imprimir(int* v, int n);
+void tempoMS(void (*sort)(int*, int, long long int*,long long int*), int *v, int n, long long int* comp, long long int* trocas);
 
 #endif
