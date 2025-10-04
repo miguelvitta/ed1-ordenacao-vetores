@@ -154,7 +154,24 @@ void tempoMS(void (*sort)(int*, int, long long int*,long long int*), int *v, int
 }
 
 static int pivo(int* v, int esquerda, int direita) {
-    
+    int pivot = v[esquerda];
+    int i = esquerda + 1;
+    int pos_final = esquerda;
+
+    for (int j = esquerda + 1; j <= direita; j++) {
+        if (v[j] < pivot) {
+            pos_final++;
+            // talvez colocar em função de troca separada na fase de acabamento do projeto
+            int temp = v[i];
+            v[i] = v[j];
+            v[j] = temp;
+            i++;
+        }
+    }
+
+    v[esquerda] = v[pos_final];
+    v[pos_final] = pivot;
+    return pos_final;
 }
 
 void quicksort(int* v, int esquerda, int direita) {
