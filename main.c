@@ -6,6 +6,7 @@ int main() {
     long long int comparacoes,trocas;
     int* v = Aleatorio(n);
     tempoMS(RadixSort,v,n,&comparacoes,&trocas);
+    quicksort(v, 0, n - 1);
     free(v);
     return 0;
 }
