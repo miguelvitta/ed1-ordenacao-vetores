@@ -26,16 +26,21 @@ int get_int(const char *prompt) {
     }
 }
 
-int getMax(int *v,int n){
+int getMax(int *v,int n,long long int* comparacoes){
     int maior = v[0];
     for(int i=1;i<n;i++){
-        if(v[i]>maior) maior = v[i];
+        if(v[i]>maior){
+            maior = v[i];
+        }
+        (*comparacoes)++;
     }
     return maior;
 }
 
-void CountingSort(int* v, int n){
-    int maior = getMax(v,n);
+void CountingSort(int* v, int n, long long int* comparacoes, long long int* trocas){
+    *comparacoes = 0;
+    *trocas = 0;
+    int maior = getMax(v,n,comparacoes);
 
     int* contador = calloc(maior+1,sizeof(int));
 
@@ -49,16 +54,18 @@ void CountingSort(int* v, int n){
     int* saida = malloc(n * (sizeof(int)));
     for(int i = n-1;i>=0;i--){
         saida[--contador[v[i]]] = v[i];
+        (*trocas)++;
     }
     for(int i=0;i<n;i++){
         v[i]=saida[i];
+        (*trocas)++;
     }
     free(contador);
     free(saida);
 
 }
 
-void CountigSortRadix(int *v,int n, int exp){
+void CountigSortRadix(int *v,int n, int exp, long long int* trocas){
     int* saida = malloc(n*sizeof(int));
     int i;
     int contador[10] = {0};
@@ -70,18 +77,22 @@ void CountigSortRadix(int *v,int n, int exp){
     }
     for(i=n-1;i>=0;i--){
         saida[contador[(v[i]/exp) % 10] - 1]=v[i];
+        (*trocas)++;
         contador[(v[i] / exp) % 10]--;
     }
     for(i=0;i<n;i++){
         v[i]=saida[i];
+        (*trocas)++;
     }
     free(saida);
 }
 
-void RadixSort(int* v, int n){
-    int m = getMax(v, n);
+void RadixSort(int* v, int n,long long int* comparacoes, long long int* trocas){
+    *comparacoes = 0;
+    *trocas = 0;
+    int m = getMax(v, n,comparacoes);
     for(int exp = 1; m/exp > 0; exp *= 10){
-        CountigSortRadix(v, n, exp); 
+        CountigSortRadix(v, n, exp, trocas); 
     }
 }
 
@@ -130,13 +141,14 @@ void Imprimir(int* v, int n){
     printf("\n");
 }
 
-void tempoMS(void (*sort)(int*, int), int *v, int n) {
+void tempoMS(void (*sort)(int*, int, long long int*,long long int*), int *v, int n, long long int* comp, long long int* trocas) {
     clock_t inicio, fim;
     double tempo_ms;
     inicio = clock();
-    sort(v, n);  
+    sort(v, n, comp,trocas);  
     fim = clock();
     tempo_ms = ((double)(fim - inicio) / CLOCKS_PER_SEC)*1000.0;
     printf("Tempo de Execucao: %.3lf ms(milissegundo)\n",tempo_ms);
-    fflush(stdout);
+    printf("Comparacoes: %ld \n",(long)*comp);
+    printf("Trocas: %ld \n",(long)*trocas);
 }
