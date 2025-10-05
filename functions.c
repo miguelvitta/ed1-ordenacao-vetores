@@ -58,9 +58,9 @@ int get_int(const char* prompt) {
             if (*endptr == '\0' || *endptr == '\n') {
                 return valor;
             }
-            printf("Invalid input. Please enter an integer.\n");
+            printf("Input inválido. Favor entrar um número inteiro.\n");
         } else {
-            printf("Error reading input.\n");
+            printf("Erro ao ler o input.\n");
             exit(1);
         }
     }

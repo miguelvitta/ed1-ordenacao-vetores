@@ -12,7 +12,7 @@
 #define SIZE_NAME 20
 #define SIZE_NUMBER 1000000
 
-typedef int64_t L;
+typedef uint64_t L;
 
 typedef struct {
     int tamanho;

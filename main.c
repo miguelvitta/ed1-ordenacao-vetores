@@ -21,7 +21,7 @@ int main() {
     while (tipo < 1 || tipo > 3)
     {
         printf("Por Favor, insira um numero entre (1-3) ");
-        menu_tipo_vetor;
+        menu_tipo_vetor();
         tipo = get_int("");
     }
     char vetor_tipo[SIZE_NAME];
