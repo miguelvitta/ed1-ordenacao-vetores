@@ -66,8 +66,8 @@ int get_int(const char* prompt) {
     }
 }
 
-void imprimir(int* v, int n) {
-    for (int i = 0; i < n; i++) {
+void imprimir(int* v, int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
         printf("%d ", v[i]);
     }
     printf("\n");
@@ -112,13 +112,13 @@ int* vetor_aleatorio(int tamanho) {
 }
 
 // ---- Algoritmos de ordenação ----
-void selection_sort(int* v, int n) {
+void selection_sort(int* v, int tamanho) {
     L trocas = 0;
     L comparacoes = 0;
 
-    for (int i = 0; i < n - 1; i++) {
+    for (int i = 0; i < tamanho - 1; i++) {
         int menor = i;
-        for (int j = i + 1; j < n; j++) {
+        for (int j = i + 1; j < tamanho; j++) {
             comparacoes++;
             if (v[j] < v[menor]) {
                 menor = j;
@@ -133,11 +133,11 @@ void selection_sort(int* v, int n) {
     }
 }
 
-void insertion_sort(int* v, int n) {
+void insertion_sort(int* v, int tamanho) {
     L trocas = 0;
     L comparacoes = 0;
 
-    for (int i = 1; i < n; i++) {
+    for (int i = 1; i < tamanho; i++) {
         int chave = v[i];
         int j = i - 1;
 
@@ -156,12 +156,12 @@ void insertion_sort(int* v, int n) {
     }
 }
 
-void bubble_sort(int* v, int n) {
+void bubble_sort(int* v, int tamanho) {
     L trocas = 0;
     L comparacoes = 0;
 
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
+    for (int i = 0; i < tamanho - 1; i++) {
+        for (int j = 0; j < tamanho - i - 1; j++) {
             comparacoes++;
             if (v[j] > v[j + 1]) {
                 int aux = v[j];
@@ -249,9 +249,9 @@ void merge_sort(int* v, int esquerda, int direita) {
     }
 }
 
-static int get_max(int* v, int n, L* comparacoes) {
+static int get_max(int* v, int tamanho, L* comparacoes) {
     int maior = v[0];
-    for (int i = 1; i < n; i++) {
+    for (int i = 1; i < tamanho; i++) {
         if (v[i] > maior) {
             maior = v[i];
         }
@@ -260,26 +260,26 @@ static int get_max(int* v, int n, L* comparacoes) {
     return maior;
 }
 
-void counting_sort(int* v, int n, L* comparacoes, L* trocas) {
+void counting_sort(int* v, int tamanho, L* comparacoes, L* trocas) {
     *comparacoes = 0;
     *trocas = 0;
-    int maior = get_max(v, n, comparacoes);
+    int maior = get_max(v, tamanho, comparacoes);
 
     int* contador = calloc(maior + 1, sizeof(int));
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < tamanho; i++) {
         contador[v[i]]++;
     }
 
     for (int i = 1; i <= maior; i++) {
         contador[i] = contador[i - 1] + contador[i];
     }
-    int* saida = malloc(n * sizeof(int));
-    for (int i = n - 1; i >= 0; i--) {
+    int* saida = malloc(tamanho * sizeof(int));
+    for (int i = tamanho - 1; i >= 0; i--) {
         saida[--contador[v[i]]] = v[i];
         (*trocas)++;
     }
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < tamanho; i++) {
         v[i] = saida[i];
         (*trocas)++;
     }
@@ -287,44 +287,44 @@ void counting_sort(int* v, int n, L* comparacoes, L* trocas) {
     free(saida);
 }
 
-static void counting_sort_radix(int* v, int n, int exp, L* trocas) {
-    int* saida = malloc(n * sizeof(int));
+static void counting_sort_radix(int* v, int tamanho, int exp, L* trocas) {
+    int* saida = malloc(tamanho * sizeof(int));
     int i;
     int contador[10] = {0};
-    for (i = 0; i < n; i++) {
+    for (i = 0; i < tamanho; i++) {
         contador[(v[i] / exp) % 10]++;
     }
     for (i = 1; i < 10; i++) {
         contador[i] += contador[i - 1];
     }
-    for (i = n - 1; i >= 0; i--) {
+    for (i = tamanho - 1; i >= 0; i--) {
         saida[contador[(v[i] / exp) % 10] - 1] = v[i];
         (*trocas)++;
         contador[(v[i] / exp) % 10]--;
     }
-    for (i = 0; i < n; i++) {
+    for (i = 0; i < tamanho; i++) {
         v[i] = saida[i];
         (*trocas)++;
     }
     free(saida);
 }
 
-void radix_sort(int* v, int n, L* comparacoes, L* trocas) {
+void radix_sort(int* v, int tamanho, L* comparacoes, L* trocas) {
     *comparacoes = 0;
     *trocas = 0;
-    int m = get_max(v, n, comparacoes);
+    int m = get_max(v, tamanho, comparacoes);
     for (int exp = 1; m / exp > 0; exp *= 10) {
-        counting_sort_radix(v, n, exp, trocas);
+        counting_sort_radix(v, tamanho, exp, trocas);
     }
 }
 
 // ---- Função auxiliar de medição de tempo ----
-void tempo_ms(void (*sort)(int*, int, L*, L*), int* v, int n, L* comp,
+void tempo_ms(void (*sort)(int*, int, L*, L*), int* v, int tamanho, L* comp,
               L* trocas) {
     clock_t inicio, fim;
     double tempo_ms;
     inicio = clock();
-    sort(v, n, comp, trocas);
+    sort(v, tamanho, comp, trocas);
     fim = clock();
     tempo_ms = ((double)(fim - inicio) / CLOCKS_PER_SEC) * 1000.0;
     printf("Tempo de Execucao: %.3lf ms(milissegundo)\n", tempo_ms);

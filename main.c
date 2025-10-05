@@ -13,7 +13,7 @@ int main() {
 
     if (sims == NULL) {
         fprintf(stderr, "Erro ao alocar memoria para as simulacoes.\n");
-        return 1;
+        exit(1);
     }
 
     menu_tipo_vetor();
@@ -27,19 +27,19 @@ int main() {
     char vetor_tipo[SIZE_NAME];
 
     int tamanho = get_int("Informe o tamanho do vetor: ");
-    int* v = NULL;
+    int* original = NULL;
 
     switch (tipo) {
         case 1:
-            v = vetor_aleatorio(tamanho);
+            original = vetor_aleatorio(tamanho);
             strcpy(vetor_tipo, "Aleatorio");
             break;
         case 2:
-            v = vetor_crescente(tamanho);
+            original = vetor_crescente(tamanho);
             strcpy(vetor_tipo, "Crescente");
             break;
         case 3:
-            v = vetor_decrescente(tamanho);
+            original = vetor_decrescente(tamanho);
             strcpy(vetor_tipo, "Decrescente");
             break;
         default:
@@ -47,18 +47,12 @@ int main() {
             exit(1);
     }
 
-    if (v == NULL) {
+    if (original == NULL) {
         fprintf(stderr, "Erro ao alocar memoria para o vetor.\n");
         exit(1);
     }
 
-    int* backup = malloc(tamanho * sizeof(int));
-    if (backup == NULL) {
-        fprintf(stderr, "Erro ao alocar memoria para o backup.\n");
-        free(v);
-        exit(1);
-    }
-    memcpy(backup, v, tamanho * sizeof(int));
+    
 
     for (int i = 0; i < qtd_simulacoes; i++) {
         printf("\n----- SIMULACAO %d -----\n", i + 1);
@@ -67,8 +61,15 @@ int main() {
         printf("\nDeseja imprimir o vetor original? (1 = Sim / 0 = Nao): ");
         int imprimir_original = get_int("");
         if (imprimir_original == 1) {
-            imprimir(v, tamanho);
+            imprimir(original, tamanho);
         }
+        int* v = malloc(tamanho * sizeof(int));
+        if (v == NULL) {
+            fprintf(stderr, "Erro ao alocar memoria para o novo vetor.\n");
+            free(v);
+            exit(1);
+        }
+        memcpy(v, original, tamanho * sizeof(int));
 
         menu_algoritmo();
         int opcao = get_int("");
@@ -111,13 +112,6 @@ int main() {
                 strcpy(sim.algoritmo, "Radix");
                 radix_sort(v, tamanho, &comparacoes, &trocas);
                 break;
-            default:
-                printf("Opcao invalida.\n");
-                free(v);
-                free(backup);
-                sim.tamanho = 0;
-                sims[i] = sim;
-                continue;
         }
 
         sim.tamanho = tamanho;
@@ -135,7 +129,6 @@ int main() {
 
         sims[i] = sim;
         free(v);
-        free(backup);
     }
 
     imprimir_resumo(sims, qtd_simulacoes, vetor_tipo);

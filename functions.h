@@ -32,24 +32,24 @@ void imprimir_resumo(Simulacao* sims, int qtd, char* vetor_tipo);
 
 // ---- Utilitários ----
 int get_int(const char* prompt);
-void imprimir(int* v, int n);
+void imprimir(int* v, int tamanho);
 
 // ---- Geração de vetores ----
-int* vetor_aleatorio(int n);
-int* vetor_decrescente(int n);
-int* vetor_crescente(int n);
+int* vetor_aleatorio(int tamanho);
+int* vetor_decrescente(int tamanho);
+int* vetor_crescente(int tamanho);
 
 // ---- Algoritmos de ordenação ----
-void selection_sort(int* v, int n);
-void insertion_sort(int* v, int n);
-void bubble_sort(int* v, int n);
+void selection_sort(int* v, int tamanho);
+void insertion_sort(int* v, int tamanho);
+void bubble_sort(int* v, int tamanho);
 void quick_sort(int* v, int low, int high);
 void merge_sort(int* v, int left, int right);
-void counting_sort(int* v, int n, L* comparacoes, L* trocas);
-void radix_sort(int* v, int n, L* comparacoes, L* trocas);
+void counting_sort(int* v, int tamanho, L* comparacoes, L* trocas);
+void radix_sort(int* v, int tamanho, L* comparacoes, L* trocas);
 
 // ---- Função auxiliar de medição de tempo ----
-void tempo_ms(void (*sort)(int*, int, L*, L*), int* v, int n, L* comp,
+void tempo_ms(void (*sort)(int*, int, L*, L*), int* v, int tamanho, L* comp,
               L* trocas);
 
 #endif
