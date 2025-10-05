@@ -23,8 +23,8 @@ typedef struct {
 } Simulacao;
 
 // ---- Menus ----
-int menu_tipo_vetor();
-int menu_algoritmo();
+void menu_tipo_vetor();
+void menu_algoritmo();
 
 // ---- Saída ----
 void imprimir_resultado(Simulacao sim, char* vetor_tipo);

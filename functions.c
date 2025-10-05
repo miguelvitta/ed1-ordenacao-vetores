@@ -3,16 +3,14 @@
 
 
 // ---- Menus ----
-int menu_tipo_vetor(int tipo) {
+void menu_tipo_vetor() {
     printf("\nSelecione o tipo de vetor:\n");
     printf("1. Aleatorio\n");
     printf("2. Crescente\n");
     printf("3. Decrescente\n");
-    tipo = get_int("Opcao: ");
-    return tipo;
 }
 
-int menu_algoritmo() {
+void menu_algoritmo() {
     printf("\nEscolha o algoritmo de ordenacao:\n");
     printf("1. Selection Sort\n");
     printf("2. Insertion Sort\n");
@@ -21,9 +19,6 @@ int menu_algoritmo() {
     printf("5. Merge Sort\n");
     printf("6. Counting Sort\n");
     printf("7. Radix Sort\n");
-
-    int opcao = get_int("Opcao: ");
-    return opcao;
 }
 
 // ---- Saída ----

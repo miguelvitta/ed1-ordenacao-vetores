@@ -16,7 +16,14 @@ int main() {
         return 1;
     }
 
-    int tipo = menu_tipo_vetor(tipo);
+    menu_tipo_vetor();
+    int tipo = get_int("");
+    while (tipo < 1 || tipo > 3)
+    {
+        printf("Por Favor, insira um numero entre (1-3) ");
+        menu_tipo_vetor;
+        tipo = get_int("");
+    }
     char vetor_tipo[SIZE_NAME];
 
     int tamanho = get_int("Informe o tamanho do vetor: ");
@@ -63,7 +70,14 @@ int main() {
             imprimir(v, tamanho);
         }
 
-        int opcao = menu_algoritmo();
+        menu_algoritmo();
+        int opcao = get_int("");
+        while (opcao < 1 || opcao > 7)
+        {
+            printf("Por Favor, insira um numero entre (1-7) ");
+            opcao = get_int("");
+        }
+
         L comparacoes = 0, trocas = 0;
         clock_t inicio, fim;
         double tempo_ms;
