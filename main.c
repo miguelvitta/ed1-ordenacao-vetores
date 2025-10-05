@@ -42,17 +42,12 @@ int main() {
             original = vetor_decrescente(tamanho);
             strcpy(vetor_tipo, "Decrescente");
             break;
-        default:
-            printf("Opcao invalida.\n");
-            exit(1);
     }
 
     if (original == NULL) {
         fprintf(stderr, "Erro ao alocar memoria para o vetor.\n");
         exit(1);
     }
-
-    
 
     for (int i = 0; i < qtd_simulacoes; i++) {
         printf("\n----- SIMULACAO %d -----\n", i + 1);
@@ -133,5 +128,6 @@ int main() {
 
     imprimir_resumo(sims, qtd_simulacoes, vetor_tipo);
     free(sims);
+    free(original);
     return 0;
 }
