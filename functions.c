@@ -250,3 +250,52 @@ void quicksort(int* v, int esquerda, int direita) {
         quicksort(v, p + 1, direita);
     }
 }
+
+void merge_sort(int* v, int esquerda, int direita) {
+    if (esquerda < direita) {
+        int meio = (esquerda + direita) / 2;
+        merge_sort(v, esquerda, meio);
+        merge_sort(v, meio + 1, direita);
+        merge(v, esquerda, meio, direita);
+    }
+}
+
+static void merge(int* v, int esquerda, int meio, int direita) {
+    int size_esquerda = meio - esquerda + 1;
+    int size_direita = direita - meio;
+
+    int* E = malloc(size_esquerda * sizeof(int));
+    int* D = malloc(size_direita * sizeof(int));
+    if (E == NULL || D == NULL) {
+        fprintf(stderr, "Alocação de memória falhou!\n");
+        exit(1);
+    }
+
+    for (int i = 0; i < size_esquerda; i++) {
+        E[i] = v[esquerda + i];
+    }
+    for (int i = 0; i < size_direita; i++) {
+        D[i] = v[meio + 1 + i];
+    }
+
+    int i = 0;
+    int j = 0;
+    int k = esquerda;
+    while (i < size_esquerda && j < size_direita) {
+        if (E[i] <= D[j]) {
+            v[k++] = E[i++];
+        }
+        else {
+            v[k++] = D[j++];
+        }
+    }
+    while (i < size_esquerda) {
+        v[k++] = E[i++];
+    }
+    while (j < size_direita) {
+        v[k++] = D[j++];
+    }
+
+    free(E);
+    free(D);
+}
