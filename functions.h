@@ -27,9 +27,6 @@ int menu_algoritmo();
 void imprimir_resultado(Simulacao sim);
 void imprimir_resumo(Simulacao* sims, int qtd);
 
-// ---- Execução ----
-Simulacao executar_simulacao();
-
 // ---- Utilitários ----
 int get_int(const char* prompt);
 void imprimir(int* v, int n);
