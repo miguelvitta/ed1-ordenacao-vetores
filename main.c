@@ -81,8 +81,7 @@ int main() {
         }
 
         L comparacoes = 0, trocas = 0;
-        clock_t inicio, fim;
-        double tempo_ms;
+        double tempo_ms = 0.0;
 
         switch (opcao) {
             case 1:

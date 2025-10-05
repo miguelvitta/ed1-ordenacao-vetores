@@ -28,8 +28,8 @@ void imprimir_resultado(Simulacao sim, char* vetor_tipo) {
     printf("Tipo de vetor: %s\n", vetor_tipo);
     printf("Tamanho: %d\n", sim.tamanho);
     printf("Tempo de Execucao: %.3lf ms\n", sim.tempo_ms);
-    printf("Comparacoes: %lld\n", sim.comparacoes);
-    printf("Trocas: %lld\n", sim.trocas);
+    printf("Comparacoes: %lu\n", sim.comparacoes);
+    printf("Trocas: %lu\n", sim.trocas);
 }
 
 void imprimir_resumo(Simulacao* sims, int qtd, char* vetor_tipo) {
@@ -37,7 +37,7 @@ void imprimir_resumo(Simulacao* sims, int qtd, char* vetor_tipo) {
     for (int i = 0; i < qtd; i++) {
         printf(
             "%d) Algoritmo: %s | Tipo: %s | Tamanho: %d | Tempo: %.3lf ms | "
-            "Comp: %lld | Trocas: %lld\n",
+            "Comp: %lu | Trocas: %lu\n",
             i + 1, sims[i].algoritmo, vetor_tipo, sims[i].tamanho,
             sims[i].tempo_ms, sims[i].comparacoes, sims[i].trocas);
     }
