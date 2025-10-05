@@ -2,15 +2,15 @@
 #define FUNCTIONS_H
 
 // as bibliotecas vão aqui em ordem alfabética
-#include <string.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
+#include <string.h>
 #include <time.h>
 
 typedef int64_t L;
 
-typedef struct{
+typedef struct {
     int tamanho;
     char tipo[20];
     char algoritmo[20];
@@ -46,9 +46,10 @@ void bubble_sort(int* v, int n);
 void quick_sort(int* v, int low, int high);
 void merge_sort(int* v, int left, int right);
 void counting_sort(int* v, int n, L* comparacoes, L* trocas);
-void radix_sort(int* v, int n,L* comparacoes, L* trocas);
+void radix_sort(int* v, int n, L* comparacoes, L* trocas);
 
 // ---- Função auxiliar de medição de tempo ----
-void tempo_ms(void (*sort)(int*, int, L*,L*), int *v, int n, L* comp, L* trocas);
+void tempo_ms(void (*sort)(int*, int, L*, L*), int* v, int n, L* comp,
+              L* trocas);
 
 #endif
