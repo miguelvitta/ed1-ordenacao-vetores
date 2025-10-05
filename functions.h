@@ -2,12 +2,28 @@
 #define FUNCTIONS_H
 
 // as bibliotecas vão aqui em ordem alfabética
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-// Os protótipos das funções vão aqui
+typedef struct{
+    int tamanho;
+    char tipo[20];
+    char algoritmo[20];
+    double tempo_ms;
+    long long int trocas;
+    long long int comparacoes;
+} Simulacao;
 
+// main
+int menu_tipo_vetor();
+int menu_algoritmo();
+void imprimir_resultado(Simulacao sim);
+void imprimir_resumo(Simulacao* sims, int qtd);
+Simulacao executar_simulacao();
+
+// Os protótipos das funções vão aqui
 int get_int(const char *prompt);
 void CountingSort(int* v, int n, long long int* comparacoes, long long int* trocas);
 int getMax(int *v,int n,long long int* comparacoes);
