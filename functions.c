@@ -1,15 +1,14 @@
 #include "functions.h"
 
-#define SIZE_BUFFER 101
-#define SIZE_NUMBER 1000000
+
 
 // ---- Menus ----
-int menu_tipo_vetor() {
+int menu_tipo_vetor(int tipo) {
     printf("\nSelecione o tipo de vetor:\n");
     printf("1. Aleatorio\n");
     printf("2. Crescente\n");
     printf("3. Decrescente\n");
-    int tipo = get_int("Opcao: ");
+    tipo = get_int("Opcao: ");
     return tipo;
 }
 
@@ -28,23 +27,23 @@ int menu_algoritmo() {
 }
 
 // ---- Saída ----
-void imprimir_resultado(Simulacao sim) {
+void imprimir_resultado(Simulacao sim, char* vetor_tipo) {
     printf("\n----- RESULTADO -----\n");
     printf("Algoritmo: %s\n", sim.algoritmo);
-    printf("Tipo de vetor: %s\n", sim.tipo);
+    printf("Tipo de vetor: %s\n", vetor_tipo);
     printf("Tamanho: %d\n", sim.tamanho);
     printf("Tempo de Execucao: %.3lf ms\n", sim.tempo_ms);
     printf("Comparacoes: %lld\n", sim.comparacoes);
     printf("Trocas: %lld\n", sim.trocas);
 }
 
-void imprimir_resumo(Simulacao* sims, int qtd) {
+void imprimir_resumo(Simulacao* sims, int qtd, char* vetor_tipo) {
     printf("\n----- RESUMO DAS SIMULACOES -----\n");
     for (int i = 0; i < qtd; i++) {
         printf(
             "%d) Algoritmo: %s | Tipo: %s | Tamanho: %d | Tempo: %.3lf ms | "
             "Comp: %lld | Trocas: %lld\n",
-            i + 1, sims[i].algoritmo, sims[i].tipo, sims[i].tamanho,
+            i + 1, sims[i].algoritmo, vetor_tipo, sims[i].tamanho,
             sims[i].tempo_ms, sims[i].comparacoes, sims[i].trocas);
     }
 }

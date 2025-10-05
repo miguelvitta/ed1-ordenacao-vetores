@@ -1,7 +1,7 @@
 #include "functions.h"
 
 int main() {
-    int qtd_simulacoes = get_int("Quantas simulacoes deseja executar? ");
+    int qtd_simulacoes = get_int("Quantos algoritmos deseja executar?  (1-7)");
     Simulacao* sims = malloc(qtd_simulacoes * sizeof(Simulacao));
 
     if (sims == NULL) {
@@ -9,40 +9,46 @@ int main() {
         return 1;
     }
 
+    int tipo = menu_tipo_vetor(tipo);
+    char vetor_tipo[SIZE_NAME];
+
+    int tamanho = get_int("Informe o tamanho do vetor: ");
+    int* v = NULL;
+
+    switch (tipo) {
+        case 1:
+            v = vetor_aleatorio(tamanho);
+            strcpy(vetor_tipo, "Aleatorio");
+            break;
+        case 2:
+            v = vetor_crescente(tamanho);
+            strcpy(vetor_tipo, "Crescente");
+            break;
+        case 3:
+            v = vetor_decrescente(tamanho);
+            strcpy(vetor_tipo, "Decrescente");
+            break;
+        default:
+            printf("Opcao invalida.\n");
+            exit(1);
+    }
+
+    if (v == NULL) {
+        fprintf(stderr, "Erro ao alocar memoria para o vetor.\n");
+        exit(1);
+    }
+
+    int* backup = malloc(tamanho * sizeof(int));
+    if (backup == NULL) {
+        fprintf(stderr, "Erro ao alocar memoria para o backup.\n");
+        free(v);
+        exit(1);
+    }
+    memcpy(backup, v, tamanho * sizeof(int));
+
     for (int i = 0; i < qtd_simulacoes; i++) {
         printf("\n----- SIMULACAO %d -----\n", i + 1);
         Simulacao sim;
-        int tipo = menu_tipo_vetor();
-
-        int tamanho = get_int("Informe o tamanho do vetor: ");
-        int* v = NULL;
-
-        switch (tipo) {
-            case 1:
-                v = vetor_aleatorio(tamanho);
-                strcpy(sim.tipo, "Aleatorio");
-                break;
-            case 2:
-                v = vetor_crescente(tamanho);
-                strcpy(sim.tipo, "Crescente");
-                break;
-            case 3:
-                v = vetor_decrescente(tamanho);
-                strcpy(sim.tipo, "Decrescente");
-                break;
-            default:
-                printf("Opcao invalida.\n");
-                sim.tamanho = 0;
-                sims[i] = sim;
-                continue;
-        }
-
-        if (v == NULL) {
-            fprintf(stderr, "Erro ao alocar memoria para o vetor.\n");
-            sim.tamanho = 0;
-            sims[i] = sim;
-            continue;
-        }
 
         printf("\nDeseja imprimir o vetor original? (1 = Sim / 0 = Nao): ");
         int imprimir_original = get_int("");
@@ -55,17 +61,6 @@ int main() {
         clock_t inicio, fim;
         double tempo_ms;
 
-        int* backup = malloc(tamanho * sizeof(int));
-        if (backup == NULL) {
-            fprintf(stderr, "Erro ao alocar memoria para o backup.\n");
-            free(v);
-            sim.tamanho = 0;
-            sims[i] = sim;
-            continue;
-        }
-        memcpy(backup, v, tamanho * sizeof(int));
-
-        inicio = clock();
         switch (opcao) {
             case 1:
                 strcpy(sim.algoritmo, "Selection");
@@ -103,15 +98,13 @@ int main() {
                 sims[i] = sim;
                 continue;
         }
-        fim = clock();
-        tempo_ms = ((double)(fim - inicio) / CLOCKS_PER_SEC) * 1000.0;
 
         sim.tamanho = tamanho;
         sim.tempo_ms = tempo_ms;
         sim.trocas = trocas;
         sim.comparacoes = comparacoes;
 
-        imprimir_resultado(sim);
+        imprimir_resultado(sim, vetor_tipo);
 
         printf("\nDeseja imprimir o vetor ordenado? (1 = Sim / 0 = Nao): ");
         int imprimir_final = get_int("");
@@ -124,7 +117,7 @@ int main() {
         free(backup);
     }
 
-    imprimir_resumo(sims, qtd_simulacoes);
+    imprimir_resumo(sims, qtd_simulacoes, vetor_tipo);
     free(sims);
     return 0;
 }

@@ -8,11 +8,14 @@
 #include <string.h>
 #include <time.h>
 
+#define SIZE_BUFFER 101
+#define SIZE_NAME 20
+#define SIZE_NUMBER 1000000
+
 typedef int64_t L;
 
 typedef struct {
     int tamanho;
-    char tipo[20];
     char algoritmo[20];
     double tempo_ms;
     L trocas;
@@ -24,8 +27,8 @@ int menu_tipo_vetor();
 int menu_algoritmo();
 
 // ---- Saída ----
-void imprimir_resultado(Simulacao sim);
-void imprimir_resumo(Simulacao* sims, int qtd);
+void imprimir_resultado(Simulacao sim, char* vetor_tipo);
+void imprimir_resumo(Simulacao* sims, int qtd, char* vetor_tipo);
 
 // ---- Utilitários ----
 int get_int(const char* prompt);
