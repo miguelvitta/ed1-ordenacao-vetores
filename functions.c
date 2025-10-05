@@ -13,13 +13,16 @@ int menu_tipo_vetor(){
     return tipo;
 }
 
-int menu_algoritmo(){
+int menu_algoritmo() {
     printf("\nEscolha o algoritmo de ordenacao:\n");
     printf("1. Selection Sort\n");
-    printf("2. Bubble Sort\n");
-    printf("3. Insertion Sort\n");
-    printf("4. Counting Sort\n");
-    printf("5. Radix Sort\n");
+    printf("2. Insertion Sort\n");
+    printf("3. Bubble Sort\n");
+    printf("4. Quick Sort\n");
+    printf("5. Merge Sort\n");
+    printf("6. Counting Sort\n");
+    printf("7. Radix Sort\n");
+
     int opcao = get_int("Opcao: ");
     return opcao;
 }
@@ -85,24 +88,32 @@ Simulacao executar_simulacao(){
     memcpy(backup, v, n * sizeof(int));
 
     inicio = clock();
-    switch(opcao){
+    switch (opcao) {
         case 1:
             strcpy(sim.algoritmo, "Selection");
             selection_sort(v, n);
             break;
         case 2:
-            strcpy(sim.algoritmo, "Bubble");
-            bubble_sort(v, n);
-            break;
-        case 3:
             strcpy(sim.algoritmo, "Insertion");
             insertion_sort(v, n);
             break;
+        case 3:
+            strcpy(sim.algoritmo, "Bubble");
+            bubble_sort(v, n);
+            break;
         case 4:
+            strcpy(sim.algoritmo, "Quick");
+            quick_sort(v, 0, n - 1);
+            break;
+        case 5:
+            strcpy(sim.algoritmo, "Merge");
+            merge_sort(v, 0, n - 1);
+            break;
+        case 6:
             strcpy(sim.algoritmo, "Counting");
             counting_sort(v, n, &comparacoes, &trocas);
             break;
-        case 5:
+        case 7:
             strcpy(sim.algoritmo, "Radix");
             radix_sort(v, n, &comparacoes, &trocas);
             break;

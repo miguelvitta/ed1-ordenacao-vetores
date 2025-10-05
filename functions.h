@@ -5,9 +5,10 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <time.h>
 
-typedef long long int L;
+typedef int64_t L;
 
 typedef struct{
     int tamanho;
