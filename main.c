@@ -1,7 +1,14 @@
 #include "functions.h"
 
 int main() {
+    
     int qtd_simulacoes = get_int("Quantos algoritmos deseja executar?  (1-7)");
+    while (qtd_simulacoes < 1 || qtd_simulacoes > 7)
+    {
+        printf("Por Favor, insira um numero entre (1-7) ");
+        qtd_simulacoes = get_int("");
+    }
+    
     Simulacao* sims = malloc(qtd_simulacoes * sizeof(Simulacao));
 
     if (sims == NULL) {
