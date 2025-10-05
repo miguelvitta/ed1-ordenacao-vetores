@@ -18,5 +18,6 @@ int* Crescente(int n);
 void Imprimir(int* v, int n);
 void tempoMS(void (*sort)(int*, int, long long int*,long long int*), int *v, int n, long long int* comp, long long int* trocas);
 void quicksort(int* v, int low, int high);
+void merge_sort(int* v, int left, int right);
 
 #endif
