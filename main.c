@@ -1,20 +1,4 @@
 #include "functions.h"
-#include <string.h>
-
-typedef struct{
-    int tamanho;
-    char tipo[20];
-    char algoritmo[20];
-    double tempo_ms;
-    long long int trocas;
-    long long int comparacoes;
-} Simulacao;
-
-int menu_tipo_vetor();
-int menu_algoritmo();
-void imprimir_resultado(Simulacao sim);
-void imprimir_resumo(Simulacao* sims, int qtd);
-Simulacao executar_simulacao();
 
 int main(){
     int qtd_simulacoes = get_int("Quantas simulacoes deseja executar? ");
