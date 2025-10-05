@@ -27,6 +27,12 @@ int main() {
     char vetor_tipo[SIZE_NAME];
 
     int tamanho = get_int("Informe o tamanho do vetor: ");
+    while (tamanho < 1 || tamanho > 1000000)
+    {
+        printf("Por Favor, insira um numero entre (1-1000000) ");
+        tamanho = get_int("");
+    }
+    
     int* original = NULL;
 
     switch (tipo) {

@@ -16,7 +16,7 @@ typedef int64_t L;
 
 typedef struct {
     int tamanho;
-    char algoritmo[20];
+    char algoritmo[SIZE_NAME];
     double tempo_ms;
     L trocas;
     L comparacoes;
