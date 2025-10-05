@@ -2,17 +2,20 @@
 #define FUNCTIONS_H
 
 // as bibliotecas vão aqui em ordem alfabética
-#include <string.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
+#include <string.h>
 #include <time.h>
+
+#define SIZE_BUFFER 101
+#define SIZE_NAME 20
+#define SIZE_NUMBER 1000000
 
 typedef int64_t L;
 
-typedef struct{
+typedef struct {
     int tamanho;
-    char tipo[20];
     char algoritmo[20];
     double tempo_ms;
     L trocas;
@@ -24,11 +27,8 @@ int menu_tipo_vetor();
 int menu_algoritmo();
 
 // ---- Saída ----
-void imprimir_resultado(Simulacao sim);
-void imprimir_resumo(Simulacao* sims, int qtd);
-
-// ---- Execução ----
-Simulacao executar_simulacao();
+void imprimir_resultado(Simulacao sim, char* vetor_tipo);
+void imprimir_resumo(Simulacao* sims, int qtd, char* vetor_tipo);
 
 // ---- Utilitários ----
 int get_int(const char* prompt);
@@ -46,9 +46,10 @@ void bubble_sort(int* v, int n);
 void quick_sort(int* v, int low, int high);
 void merge_sort(int* v, int left, int right);
 void counting_sort(int* v, int n, L* comparacoes, L* trocas);
-void radix_sort(int* v, int n,L* comparacoes, L* trocas);
+void radix_sort(int* v, int n, L* comparacoes, L* trocas);
 
 // ---- Função auxiliar de medição de tempo ----
-void tempo_ms(void (*sort)(int*, int, L*,L*), int *v, int n, L* comp, L* trocas);
+void tempo_ms(void (*sort)(int*, int, L*, L*), int* v, int n, L* comp,
+              L* trocas);
 
 #endif
