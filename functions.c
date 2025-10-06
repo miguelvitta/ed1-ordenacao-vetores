@@ -142,7 +142,9 @@ void insertion_sort(int* v, int tamanho, L* comparacoes, L* trocas) {
             v[j + 1] = v[j];
             (*trocas)++;
             j--;
-            if (j >= 0) (*comparacoes)++;
+            if (j >= 0) {
+                (*comparacoes)++;
+            }
         }
         v[j + 1] = chave;
     }
@@ -196,7 +198,8 @@ void quick_sort(int* v, int esquerda, int direita, L* comp, L* trocas) {
     }
 }
 
-static void merge(int* v, int esquerda, int meio, int direita, L* comp, L* trocas) {
+static void merge(int* v, int esquerda, int meio, int direita, L* comp,
+                  L* trocas) {
     int size_esquerda = meio - esquerda + 1;
     int size_direita = direita - meio;
 
@@ -250,7 +253,7 @@ void merge_sort(int* v, int esquerda, int direita, L* comp, L* trocas) {
     }
 }
 
-static int get_max(int* v, int tamanho, L* comparacoes) {
+static int get_max(const int* v, int tamanho, L* comparacoes) {
     int maior = v[0];
     for (int i = 1; i < tamanho; i++) {
         if (v[i] > maior) {
@@ -290,7 +293,7 @@ void counting_sort(int* v, int tamanho, L* comparacoes, L* trocas) {
 
 static void counting_sort_radix(int* v, int tamanho, int exp, L* trocas) {
     int* saida = malloc(tamanho * sizeof(int));
-    int i;
+    int i = 0;
     int contador[10] = {0};
     for (i = 0; i < tamanho; i++) {
         contador[(v[i] / exp) % 10]++;
@@ -330,8 +333,7 @@ double tempo_ms(void (*sort)(int*, int, L*, L*), int* v, int tamanho, L* comp,
 }
 
 // Benchmark para QuickSort
-double tempo_quick(int* v, int tamanho, L* comp,
-                L* trocas) {
+double tempo_quick(int* v, int tamanho, L* comp, L* trocas) {
     clock_t inicio, fim;
     inicio = clock();
     quick_sort(v, 0, tamanho - 1, comp, trocas);
@@ -340,8 +342,7 @@ double tempo_quick(int* v, int tamanho, L* comp,
 }
 
 // Benchmark para MergeSort
-double tempo_merge(int* v, int tamanho, L* comp,
-                L* trocas) {
+double tempo_merge(int* v, int tamanho, L* comp, L* trocas) {
     clock_t inicio, fim;
     inicio = clock();
     merge_sort(v, 0, tamanho - 1, comp, trocas);
