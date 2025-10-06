@@ -44,13 +44,18 @@ int* vetor_crescente(int tamanho);
 void selection_sort(int* v, int tamanho, L* comparacoes, L* trocas);
 void insertion_sort(int* v, int tamanho, L* comparacoes, L* trocas);
 void bubble_sort(int* v, int tamanho, L* comparacoes, L* trocas);
-void quick_sort(int* v, int low, int high);
-void merge_sort(int* v, int left, int right);
+void quick_sort(int* v, int low, int high, L* comp, L* trocas);
+void merge_sort(int* v, int left, int right, L* comp, L* trocas);
 void counting_sort(int* v, int tamanho, L* comparacoes, L* trocas);
 void radix_sort(int* v, int tamanho, L* comparacoes, L* trocas);
 
 // ---- Função auxiliar de medição de tempo ----
 double tempo_ms(void (*sort)(int*, int, L*, L*), int* v, int tamanho, L* comp,
                 L* trocas);
+double tempo_quick(int* v, int tamanho, L* comp,
+                L* trocas);
+double tempo_merge(int* v, int tamanho, L* comp,
+                L* trocas);
+
 
 #endif

@@ -165,35 +165,38 @@ void bubble_sort(int* v, int tamanho, L* comparacoes, L* trocas) {
     }
 }
 
-static int pivo(int* v, int esquerda, int direita) {
+static int pivo(int* v, int esquerda, int direita, L* comp, L* trocas) {
     int pivot = v[esquerda];
     int i = esquerda + 1;
     int pos_final = esquerda;
 
     for (int j = esquerda + 1; j <= direita; j++) {
+        (*comp)++;
         if (v[j] < pivot) {
             pos_final++;
             int temp = v[i];
             v[i] = v[j];
             v[j] = temp;
             i++;
+            (*trocas)++;
         }
     }
 
     v[esquerda] = v[pos_final];
     v[pos_final] = pivot;
+    (*trocas)++;
     return pos_final;
 }
 
-void quick_sort(int* v, int esquerda, int direita) {
+void quick_sort(int* v, int esquerda, int direita, L* comp, L* trocas) {
     if (esquerda < direita) {
-        int p = pivo(v, esquerda, direita);
-        quick_sort(v, esquerda, p - 1);
-        quick_sort(v, p + 1, direita);
+        int p = pivo(v, esquerda, direita, comp, trocas);
+        quick_sort(v, esquerda, p - 1, comp, trocas);
+        quick_sort(v, p + 1, direita, comp, trocas);
     }
 }
 
-static void merge(int* v, int esquerda, int meio, int direita) {
+static void merge(int* v, int esquerda, int meio, int direita, L* comp, L* trocas) {
     int size_esquerda = meio - esquerda + 1;
     int size_direita = direita - meio;
 
@@ -206,38 +209,44 @@ static void merge(int* v, int esquerda, int meio, int direita) {
 
     for (int i = 0; i < size_esquerda; i++) {
         E[i] = v[esquerda + i];
+        (*trocas)++;
     }
     for (int i = 0; i < size_direita; i++) {
         D[i] = v[meio + 1 + i];
+        (*trocas)++;
     }
 
     int i = 0;
     int j = 0;
     int k = esquerda;
     while (i < size_esquerda && j < size_direita) {
+        (*comp)++;
         if (E[i] <= D[j]) {
             v[k++] = E[i++];
         } else {
             v[k++] = D[j++];
         }
+        (*trocas)++;
     }
     while (i < size_esquerda) {
         v[k++] = E[i++];
+        (*trocas)++;
     }
     while (j < size_direita) {
         v[k++] = D[j++];
+        (*trocas)++;
     }
 
     free(E);
     free(D);
 }
 
-void merge_sort(int* v, int esquerda, int direita) {
+void merge_sort(int* v, int esquerda, int direita, L* comp, L* trocas) {
     if (esquerda < direita) {
         int meio = (esquerda + direita) / 2;
-        merge_sort(v, esquerda, meio);
-        merge_sort(v, meio + 1, direita);
-        merge(v, esquerda, meio, direita);
+        merge_sort(v, esquerda, meio, comp, trocas);
+        merge_sort(v, meio + 1, direita, comp, trocas);
+        merge(v, esquerda, meio, direita, comp, trocas);
     }
 }
 
@@ -316,6 +325,26 @@ double tempo_ms(void (*sort)(int*, int, L*, L*), int* v, int tamanho, L* comp,
     clock_t inicio, fim;
     inicio = clock();
     sort(v, tamanho, comp, trocas);
+    fim = clock();
+    return ((double)(fim - inicio) / CLOCKS_PER_SEC) * 1000.0;
+}
+
+// Benchmark para QuickSort
+double tempo_quick(int* v, int tamanho, L* comp,
+                L* trocas) {
+    clock_t inicio, fim;
+    inicio = clock();
+    quick_sort(v, 0, tamanho - 1, comp, trocas);
+    fim = clock();
+    return ((double)(fim - inicio) / CLOCKS_PER_SEC) * 1000.0;
+}
+
+// Benchmark para MergeSort
+double tempo_merge(int* v, int tamanho, L* comp,
+                L* trocas) {
+    clock_t inicio, fim;
+    inicio = clock();
+    merge_sort(v, 0, tamanho - 1, comp, trocas);
     fim = clock();
     return ((double)(fim - inicio) / CLOCKS_PER_SEC) * 1000.0;
 }

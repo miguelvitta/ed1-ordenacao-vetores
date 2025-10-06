@@ -96,11 +96,11 @@ int main() {
                 break;
             case 4:
                 strcpy(sim.algoritmo, "Quick");
-                quick_sort(v, 0, tamanho - 1);  // verificar
+                tempo = tempo_quick(v, tamanho, &comparacoes, &trocas);
                 break;
             case 5:
                 strcpy(sim.algoritmo, "Merge");
-                merge_sort(v, 0, tamanho - 1);  // verificar
+                tempo = tempo_merge(v, tamanho, &comparacoes, &trocas);
                 break;
             case 6:
                 strcpy(sim.algoritmo, "Counting");
