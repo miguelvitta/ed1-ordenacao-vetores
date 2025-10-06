@@ -1,14 +1,12 @@
 #include "functions.h"
 
 int main() {
-    
     int qtd_simulacoes = get_int("Quantos algoritmos deseja executar?  (1-7)");
-    while (qtd_simulacoes < 1 || qtd_simulacoes > 7)
-    {
+    while (qtd_simulacoes < 1 || qtd_simulacoes > 7) {
         printf("Por Favor, insira um numero entre (1-7) ");
         qtd_simulacoes = get_int("");
     }
-    
+
     Simulacao* sims = malloc(qtd_simulacoes * sizeof(Simulacao));
 
     if (sims == NULL) {
@@ -18,8 +16,7 @@ int main() {
 
     menu_tipo_vetor();
     int tipo = get_int("");
-    while (tipo < 1 || tipo > 3)
-    {
+    while (tipo < 1 || tipo > 3) {
         printf("Por Favor, insira um numero entre (1-3) ");
         menu_tipo_vetor();
         tipo = get_int("");
@@ -27,12 +24,11 @@ int main() {
     char vetor_tipo[SIZE_NAME];
 
     int tamanho = get_int("Informe o tamanho do vetor: ");
-    while (tamanho < 1 || tamanho > 1000000)
-    {
+    while (tamanho < 1 || tamanho > 1000000) {
         printf("Por Favor, insira um numero entre (1-1000000) ");
         tamanho = get_int("");
     }
-    
+
     int* original = NULL;
 
     switch (tipo) {
@@ -74,8 +70,7 @@ int main() {
 
         menu_algoritmo();
         int opcao = get_int("");
-        while (opcao < 1 || opcao > 7)
-        {
+        while (opcao < 1 || opcao > 7) {
             printf("Por Favor, insira um numero entre (1-7) ");
             opcao = get_int("");
         }
@@ -86,23 +81,26 @@ int main() {
         switch (opcao) {
             case 1:
                 strcpy(sim.algoritmo, "Selection");
-                tempo = tempo_ms(selection_sort,v, tamanho, &comparacoes, &trocas);
+                tempo =
+                    tempo_ms(selection_sort, v, tamanho, &comparacoes, &trocas);
                 break;
             case 2:
                 strcpy(sim.algoritmo, "Insertion");
-                tempo = tempo_ms(insertion_sort,v, tamanho, &comparacoes, &trocas);
+                tempo =
+                    tempo_ms(insertion_sort, v, tamanho, &comparacoes, &trocas);
                 break;
             case 3:
                 strcpy(sim.algoritmo, "Bubble");
-                tempo = tempo_ms(bubble_sort,v, tamanho, &comparacoes, &trocas);
+                tempo =
+                    tempo_ms(bubble_sort, v, tamanho, &comparacoes, &trocas);
                 break;
             case 4:
                 strcpy(sim.algoritmo, "Quick");
-                quick_sort(v, 0, tamanho - 1); //verificar
+                quick_sort(v, 0, tamanho - 1);  // verificar
                 break;
             case 5:
                 strcpy(sim.algoritmo, "Merge");
-                merge_sort(v, 0, tamanho - 1);//verificar
+                merge_sort(v, 0, tamanho - 1);  // verificar
                 break;
             case 6:
                 strcpy(sim.algoritmo, "Counting");

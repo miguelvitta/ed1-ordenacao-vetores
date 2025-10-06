@@ -1,7 +1,5 @@
 #include "functions.h"
 
-
-
 // ---- Menus ----
 void menu_tipo_vetor() {
     printf("\nSelecione o tipo de vetor:\n");
@@ -139,7 +137,7 @@ void insertion_sort(int* v, int tamanho, L* comparacoes, L* trocas) {
     for (int i = 1; i < tamanho; i++) {
         int chave = v[i];
         int j = i - 1;
-        (*comparacoes)++; 
+        (*comparacoes)++;
         while (j >= 0 && v[j] > chave) {
             v[j + 1] = v[j];
             (*trocas)++;
@@ -314,10 +312,10 @@ void radix_sort(int* v, int tamanho, L* comparacoes, L* trocas) {
 
 // ---- Função auxiliar de medição de tempo ----
 double tempo_ms(void (*sort)(int*, int, L*, L*), int* v, int tamanho, L* comp,
-              L* trocas) {
+                L* trocas) {
     clock_t inicio, fim;
     inicio = clock();
     sort(v, tamanho, comp, trocas);
     fim = clock();
     return ((double)(fim - inicio) / CLOCKS_PER_SEC) * 1000.0;
-              }
+}

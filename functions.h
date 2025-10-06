@@ -51,6 +51,6 @@ void radix_sort(int* v, int tamanho, L* comparacoes, L* trocas);
 
 // ---- Função auxiliar de medição de tempo ----
 double tempo_ms(void (*sort)(int*, int, L*, L*), int* v, int tamanho, L* comp,
-              L* trocas);
+                L* trocas);
 
 #endif
