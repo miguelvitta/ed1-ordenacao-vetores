@@ -28,8 +28,8 @@ void imprimir_resultado(Simulacao sim, char* vetor_tipo) {
     printf("Tipo de vetor: %s\n", vetor_tipo);
     printf("Tamanho: %d\n", sim.tamanho);
     printf("Tempo de Execucao: %.3lf ms\n", sim.tempo_ms);
-    printf("Comparacoes: %lu\n", sim.comparacoes);
-    printf("Trocas: %lu\n", sim.trocas);
+    printf("Comparacoes: %llu\n", sim.comparacoes);
+    printf("Trocas: %llu\n", sim.trocas);
 }
 
 void imprimir_resumo(Simulacao* sims, int qtd, char* vetor_tipo) {
@@ -112,14 +112,14 @@ int* vetor_aleatorio(int tamanho) {
 }
 
 // ---- Algoritmos de ordenação ----
-void selection_sort(int* v, int tamanho) {
-    L trocas = 0;
-    L comparacoes = 0;
+void selection_sort(int* v, int tamanho, L* comparacoes, L* trocas) {
+    *trocas = 0;
+    *comparacoes = 0;
 
     for (int i = 0; i < tamanho - 1; i++) {
         int menor = i;
         for (int j = i + 1; j < tamanho; j++) {
-            comparacoes++;
+            (*comparacoes)++;
             if (v[j] < v[menor]) {
                 menor = j;
             }
@@ -128,46 +128,40 @@ void selection_sort(int* v, int tamanho) {
             int aux = v[i];
             v[i] = v[menor];
             v[menor] = aux;
-            trocas++;
+            (*trocas)++;
         }
     }
 }
 
-void insertion_sort(int* v, int tamanho) {
-    L trocas = 0;
-    L comparacoes = 0;
-
+void insertion_sort(int* v, int tamanho, L* comparacoes, L* trocas) {
+    *trocas = 0;
+    *comparacoes = 0;
     for (int i = 1; i < tamanho; i++) {
         int chave = v[i];
         int j = i - 1;
-
-        while (j >= 0) {
-            comparacoes++;
-            if (v[j] > chave) {
-                v[j + 1] = v[j];
-                trocas++;
-                j--;
-            } else {
-                break;
-            }
+        (*comparacoes)++; 
+        while (j >= 0 && v[j] > chave) {
+            v[j + 1] = v[j];
+            (*trocas)++;
+            j--;
+            if (j >= 0) (*comparacoes)++;
         }
         v[j + 1] = chave;
-        trocas++;
     }
 }
 
-void bubble_sort(int* v, int tamanho) {
-    L trocas = 0;
-    L comparacoes = 0;
+void bubble_sort(int* v, int tamanho, L* comparacoes, L* trocas) {
+    *trocas = 0;
+    *comparacoes = 0;
 
     for (int i = 0; i < tamanho - 1; i++) {
         for (int j = 0; j < tamanho - i - 1; j++) {
-            comparacoes++;
+            (*comparacoes)++;
             if (v[j] > v[j + 1]) {
                 int aux = v[j];
                 v[j] = v[j + 1];
                 v[j + 1] = aux;
-                trocas++;
+                (*trocas)++;
             }
         }
     }
@@ -319,15 +313,11 @@ void radix_sort(int* v, int tamanho, L* comparacoes, L* trocas) {
 }
 
 // ---- Função auxiliar de medição de tempo ----
-void tempo_ms(void (*sort)(int*, int, L*, L*), int* v, int tamanho, L* comp,
+double tempo_ms(void (*sort)(int*, int, L*, L*), int* v, int tamanho, L* comp,
               L* trocas) {
     clock_t inicio, fim;
-    double tempo_ms;
     inicio = clock();
     sort(v, tamanho, comp, trocas);
     fim = clock();
-    tempo_ms = ((double)(fim - inicio) / CLOCKS_PER_SEC) * 1000.0;
-    printf("Tempo de Execucao: %.3lf ms(milissegundo)\n", tempo_ms);
-    printf("Comparacoes: %ld \n", (long)*comp);
-    printf("Trocas: %ld \n", (long)*trocas);
-}
+    return ((double)(fim - inicio) / CLOCKS_PER_SEC) * 1000.0;
+              }

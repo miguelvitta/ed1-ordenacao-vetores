@@ -2,6 +2,7 @@
 #define FUNCTIONS_H
 
 // as bibliotecas vão aqui em ordem alfabética
+#include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,16 +41,16 @@ int* vetor_decrescente(int tamanho);
 int* vetor_crescente(int tamanho);
 
 // ---- Algoritmos de ordenação ----
-void selection_sort(int* v, int tamanho);
-void insertion_sort(int* v, int tamanho);
-void bubble_sort(int* v, int tamanho);
+void selection_sort(int* v, int tamanho, L* comparacoes, L* trocas);
+void insertion_sort(int* v, int tamanho, L* comparacoes, L* trocas);
+void bubble_sort(int* v, int tamanho, L* comparacoes, L* trocas);
 void quick_sort(int* v, int low, int high);
 void merge_sort(int* v, int left, int right);
 void counting_sort(int* v, int tamanho, L* comparacoes, L* trocas);
 void radix_sort(int* v, int tamanho, L* comparacoes, L* trocas);
 
 // ---- Função auxiliar de medição de tempo ----
-void tempo_ms(void (*sort)(int*, int, L*, L*), int* v, int tamanho, L* comp,
+double tempo_ms(void (*sort)(int*, int, L*, L*), int* v, int tamanho, L* comp,
               L* trocas);
 
 #endif

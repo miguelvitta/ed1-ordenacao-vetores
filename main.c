@@ -81,28 +81,28 @@ int main() {
         }
 
         L comparacoes = 0, trocas = 0;
-        double tempo_ms = 0.0;
+        double tempo = 0.0;
 
         switch (opcao) {
             case 1:
                 strcpy(sim.algoritmo, "Selection");
-                selection_sort(v, tamanho);
+                tempo = tempo_ms(selection_sort,v, tamanho, &comparacoes, &trocas);
                 break;
             case 2:
                 strcpy(sim.algoritmo, "Insertion");
-                insertion_sort(v, tamanho);
+                tempo = tempo_ms(insertion_sort,v, tamanho, &comparacoes, &trocas);
                 break;
             case 3:
                 strcpy(sim.algoritmo, "Bubble");
-                bubble_sort(v, tamanho);
+                tempo = tempo_ms(bubble_sort,v, tamanho, &comparacoes, &trocas);
                 break;
             case 4:
                 strcpy(sim.algoritmo, "Quick");
-                quick_sort(v, 0, tamanho - 1);
+                quick_sort(v, 0, tamanho - 1); //verificar
                 break;
             case 5:
                 strcpy(sim.algoritmo, "Merge");
-                merge_sort(v, 0, tamanho - 1);
+                merge_sort(v, 0, tamanho - 1);//verificar
                 break;
             case 6:
                 strcpy(sim.algoritmo, "Counting");
@@ -115,7 +115,7 @@ int main() {
         }
 
         sim.tamanho = tamanho;
-        sim.tempo_ms = tempo_ms;
+        sim.tempo_ms = tempo;
         sim.trocas = trocas;
         sim.comparacoes = comparacoes;
 
