@@ -35,7 +35,7 @@ void imprimir_resumo(Simulacao* sims, int qtd, char* vetor_tipo) {
     for (int i = 0; i < qtd; i++) {
         printf(
             "%d) Algoritmo: %s | Tipo: %s | Tamanho: %d | Tempo: %.3lf ms | "
-            "Comp: %lu | Trocas: %lu\n",
+            "Comp: %llu | Trocas: %llu\n",
             i + 1, sims[i].algoritmo, vetor_tipo, sims[i].tamanho,
             sims[i].tempo_ms, sims[i].comparacoes, sims[i].trocas);
     }
