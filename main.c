@@ -104,11 +104,11 @@ int main() {
                 break;
             case 6:
                 strcpy(sim.algoritmo, "Counting");
-                counting_sort(v, tamanho, &comparacoes, &trocas);
+                tempo = tempo_ms(counting_sort, v, tamanho, &comparacoes, &trocas);
                 break;
             case 7:
                 strcpy(sim.algoritmo, "Radix");
-                radix_sort(v, tamanho, &comparacoes, &trocas);
+                tempo = tempo_ms(radix_sort, v, tamanho, &comparacoes, &trocas);
                 break;
         }
 
