@@ -191,10 +191,16 @@ static int pivo(int* v, int esquerda, int direita, L* comp, L* trocas) {
 }
 
 void quick_sort(int* v, int esquerda, int direita, L* comp, L* trocas) {
-    if (esquerda < direita) {
+    while (esquerda < direita) {
         int p = pivo(v, esquerda, direita, comp, trocas);
-        quick_sort(v, esquerda, p - 1, comp, trocas);
-        quick_sort(v, p + 1, direita, comp, trocas);
+
+        if (p - esquerda < direita - p) {
+            quick_sort(v, esquerda, p - 1, comp, trocas);
+            esquerda = p + 1; 
+        } else {
+            quick_sort(v, p + 1, direita, comp, trocas);
+            direita = p - 1; 
+        }
     }
 }
 
